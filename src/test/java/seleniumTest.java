@@ -24,6 +24,7 @@ public class seleniumTest {
     public void testSeleniumTestIDE() throws Exception {
         driver.get(baseUrl + "/");
         driver.findElement(By.linkText("Szkolenia")).click();
+        driver.findElement(By.linkText("Szkolenia")).click();
         assertEquals("Szkolenia", driver.findElement(By.cssSelector("h1.entry-title")).getText());
         driver.findElement(By.id("mt-dla-testerow")).click();
         try {
