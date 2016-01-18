@@ -1,4 +1,4 @@
-package eu.ekinnolab.core;
+
 
 import junitparams.*;
 
