@@ -15,5 +15,11 @@ public class PhoneValidatorTest {
      Assert.assertTrue(PhoneValidator.validatePhoneNumber(phoneNumber));
     }
 
+    @Test
+    @Parameters({"12yyuu34567890","123-45uyuuu6-7890"})
+    public void Validate_false(String phoneNumber){
+
+        Assert.assertFalse(PhoneValidator.validatePhoneNumber(phoneNumber));
+    }
 
 }
