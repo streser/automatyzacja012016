@@ -7,7 +7,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class seleniumIDEtest {
+public class seleniumIDETest {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
