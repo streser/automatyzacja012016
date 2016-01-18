@@ -1,60 +1,36 @@
 package eu.ekinnolab.core;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import junitparams.*;
+
+import org.junit.*;
+import org.junit.runner.RunWith;
 
 /**
  * Created by Kamil Tor on 18 sty 2016
  */
+
+@RunWith(JUnitParamsRunner.class)
 public class FirstTest {
-
-	/*
-	 * @Before
-	 * @After
-	 * 
-	 * @BeforeClass
-	 * 
-	 * 
-	 */
 	
-	
-	@Before
-	public void before() {
-		System.out.println("before");
-	}
-	
-	@BeforeClass
-	public static void beforeClass() {
-		System.out.println("STARTING TESTS");
-	}
 	
 	@Test
-	public void test1() {
-		System.out.println("1 test");
+	@Parameters({ "430989&*43098, false",
+				  "(123)-456-7890, true",
+				  "(123)-456-7.890, false"})
+	public static void testPhoneValidator(String phoneNumber, boolean result) {
+		Assert.assertEquals(validatePhoneNumber(phoneNumber) , result);
 	}
 	
-	@Test
-	public void test2() {
-		System.out.println("2 test");
-	}
-	
-	@Test
-	public void test3() {
-		System.out.println("3 test");
-	}
-	
-	@After
-	public void after() {
-		System.out.println("after");
-	}
-	
-	@AfterClass
-	public static void afterClass() {
-		System.out.println("ENDING TESTS");
-	}
-	
-
+	private static boolean validatePhoneNumber(String phoneNo) {
+        //validate phone numbers of format "1234567890"
+        if (phoneNo.matches("\\d{10}")) return true;
+            //validating phone number with -, . or spaces
+        else if (phoneNo.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) return true;
+            //validating phone number with extension length from 3 to 5
+        else if (phoneNo.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) return true;
+            //validating phone number where area code is in braces ()
+        else if (phoneNo.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) return true;
+            //return false if nothing matches the input
+        else return false;
+    }
 }
