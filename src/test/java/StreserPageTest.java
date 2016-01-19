@@ -11,30 +11,40 @@ import static org.junit.Assert.assertFalse;
 
 public class StreserPageTest extends SeleniumAbstractTest{
 
-    public String title = UUID.randomUUID().toString();
+    public String postTitle = UUID.randomUUID().toString();
 
     @Test
-    public void shouldAddNewPost() throws InterruptedException {
-        logIn();
+    public void shouldRemoveNewPost() throws InterruptedException {
+        goToPostCreationPage();
 
-        driver.findElement(By.linkText("Posts")).click();
-        assertEquals(driver.findElement(By.linkText(title)).getText(), title);
+        createNewPost(postTitle);
 
+        findPostToDelete(postTitle);
 
-        String myXpath = String.format("//td[.//a/text()=\"%s\"]/ancestor::tr[1]//th/input", title);
-        driver.findElement(By.xpath(myXpath)).click();
+        deletePost();
+    }
 
+    private void deletePost() {
         Select select = new Select(driver.findElement(By.id("bulk-action-selector-bottom")));
         select.selectByVisibleText("Move to Trash");
         driver.findElement(By.id("doaction2")).click();
-        assertFalse(driver.getPageSource().contains(title));
-        //dfdss
+        assertFalse(driver.getPageSource().contains(postTitle));
     }
 
-    private void logIn() {
+    private void findPostToDelete(String postTitle) {
+        driver.findElement(By.linkText("Posts")).click();
+        assertEquals(driver.findElement(By.linkText(postTitle)).getText(), postTitle);
+        String myXpath = String.format("//td[.//a/text()=\"%s\"]/ancestor::tr[1]//th/input", postTitle);
+        driver.findElement(By.xpath(myXpath)).click();
+    }
+
+    private void goToPostCreationPage() {
         driver.findElement(By.linkText("Posts")).click();
         driver.findElement(By.className("page-title-action")).click();
-        driver.findElement(By.id("title")).sendKeys(title);
+    }
+
+    private void createNewPost(String postTitle) {
+        driver.findElement(By.id("title")).sendKeys(postTitle);
         driver.findElement(By.id("publish")).click();
     }
 
