@@ -12,13 +12,6 @@ public class WrittenSeleniumTest extends SeleniumBase {
 	}
 
 	@Test
-	public void testSeleniumIDE() throws Exception {
-		givenIamOnMainPage();
-		whenIGoToCoachingSection();
-		thenIshouldSeeAgileCoachingOffer();
-	}
-
-	@Test
 	public void testSeleniumManually() throws Exception {
 		givenIamOnMainPage();
 		whenIgoToOrganizationSection();
