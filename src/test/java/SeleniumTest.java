@@ -21,7 +21,7 @@ public class SeleniumTest extends BaseTest {
         clickElement(findWebElementByText("Leading SAFe"));
     }
 
-    @Test
+    //@Test
     public void shouldCheckIfLeadingSageExistBySeleniumIDE() throws Exception {
         goToPage("http://agileszkolenia.pl/");
         clickElement(findWebElementByText("Szkolenia"));
