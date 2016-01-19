@@ -1,85 +1,31 @@
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
-
-import java.util.concurrent.TimeUnit;
-
 import static org.junit.Assert.*;
 
-public class SeleniumTest {
-    private WebDriver driver;
-    private String baseUrl;
-    private boolean acceptNextAlert = true;
-    private StringBuffer verificationErrors = new StringBuffer();
+public class SeleniumTest extends SeleniumAbstractTest {
 
-    @Before
-    public void setUp() throws Exception {
-        driver = new FirefoxDriver();
-        baseUrl = "http://agileszkolenia.pl/szkolenia/";
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    }
-
-    //@Test
-    public void testSeleniumTest() throws Exception {
-        driver.get(baseUrl + "/");
-        driver.findElement(By.linkText("Konsulting")).click();
-        assertEquals("Konsulting metod Agile (Scrum, Kanban, SAFe), procesy IT", driver.getTitle());
-        driver.findElement(By.linkText("Szkolenia")).click();
-        assertEquals("Szkolenia Agile - Code Sprinters", driver.getTitle());
-        driver.findElement(By.linkText("Coaching")).click();
-        assertEquals("Agile Coaching - Code Sprinters", driver.getTitle());
+    @Test
+    public void isMainPageAvailable(){
+        assertEquals(driver.findElement(By.xpath("//div[3]/div[1]/div/div[3]/div")).getText(), "Oferta\nNasze Usługi");
     }
 
     @Test
-    public void konsultingTest() throws Exception {
-        driver.get(baseUrl + "/");
-        driver.findElement(By.id("mt-dla-organizacji")).click();
-        assertTrue(driver.findElement(By.linkText("Leading SAFe")).isDisplayed());
+    public void shouldSzkoleniaPageBeAvailable(){
+        driver.findElement(By.linkText("Szkolenia")).click();
+        WebElement element = driver.findElement(By.className("entry-title"));
+        assertEquals(element.getText(), "Szkolenia");
     }
 
-
-    @After
-    public void tearDown() throws Exception {
-        driver.quit();
-        String verificationErrorString = verificationErrors.toString();
-        if (!"".equals(verificationErrorString)) {
-            fail(verificationErrorString);
-        }
+    @Test
+    public void shouldKonsultingPageBeAvailable(){
+        driver.findElement(By.linkText("Konsulting")).click();
+        assertEquals("Konsulting metod Agile (Scrum, Kanban, SAFe), procesy IT", driver.getTitle());
     }
 
-    private boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    private boolean isAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
-
-    private String closeAlertAndGetItsText() {
-        try {
-            Alert alert = driver.switchTo().alert();
-            String alertText = alert.getText();
-            if (acceptNextAlert) {
-                alert.accept();
-            } else {
-                alert.dismiss();
-            }
-            return alertText;
-        } finally {
-            acceptNextAlert = true;
-        }
+    @Test
+    public void shouldCoachingPageBeAvailable(){
+        driver.findElement(By.linkText("Coaching")).click();
+        assertEquals("Agile Coaching - Code Sprinters", driver.getTitle());
     }
 }
 
