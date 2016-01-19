@@ -52,5 +52,8 @@ public class StreserTest extends SeleniumBase {
         WebElement loginBtn = FindElementById("wp-submit");
         ClickElement(loginBtn);
     }
+
+    //label[text()='Seaside & Country Homes']/preceding-sibling::input[@type='checkbox']
 }
+
 
