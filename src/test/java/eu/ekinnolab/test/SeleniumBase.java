@@ -21,18 +21,11 @@ public class SeleniumBase {
 	public SeleniumBase() {
 		super();
 	}
-	
-	@BeforeClass
-	public static void beforeScenario() throws Exception {
-		System.out.println("beforeScen parent");
-	}
 
 	@Before
 	public void setUp() throws Exception {
 		driver = new FirefoxDriver();
-		baseUrl = "http://agileszkolenia.pl/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		System.out.println("in parent");
 	}
 
 	@After
@@ -75,6 +68,14 @@ public class SeleniumBase {
 		} catch (NoSuchElementException e) {
 			return false;
 		}
+	}
+
+	public String getBaseUrl() {
+		return baseUrl;
+	}
+
+	public void setBaseUrl(String baseUrl) {
+		this.baseUrl = baseUrl;
 	}
 
 }
