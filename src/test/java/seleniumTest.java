@@ -1,6 +1,4 @@
 import org.junit.*;
-import static org.junit.Assert.*;
-import org.openqa.selenium.*;
 
 public class seleniumTest extends seleniumTestSprint {
 
