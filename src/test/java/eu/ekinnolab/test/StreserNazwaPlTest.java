@@ -19,16 +19,18 @@ public class StreserNazwaPlTest extends SeleniumBase {
 	
 	@Test
 	public void shouldNewPostBeAddedAndDeleted() {
-		login();
-		goToAddNewItemForm();
-		addNewItem();
+		this.postTitle = "Kamil post, time: " + System.currentTimeMillis();
+
+		login("admin", "password");
+		goToAddNewPostForm();
+		addNewPost(this.postTitle);
 		goToPostsList();
-		assertThatPostIsAdded();
-		deleteAddedPost();
+		assertThatPostIsAdded(this.postTitle);
+		deleteAddedPost(this.postTitle);
 		assertThatPostIsNotPresent();
 	}
 
-	public void login() {
+	public void login(String username, String password) {
 		driver.get(baseUrl);
 		try {
 			driver.findElement(By.linkText("Log in")).click();
@@ -41,19 +43,18 @@ public class StreserNazwaPlTest extends SeleniumBase {
 		WebElement passwordField = driver.findElement(By.id("user_pass"));
 		WebElement submitButton = driver.findElement(By.id("wp-submit"));
 		
-		loginField.sendKeys("admin");
-		passwordField.sendKeys("password");
+		loginField.sendKeys(username);
+		passwordField.sendKeys(password);
 		submitButton.click();
 	}
 	
-	public void goToAddNewItemForm() {
+	public void goToAddNewPostForm() {
 		driver.findElement(By.linkText("Posts")).click();
 		driver.findElement(By.linkText("Add New")).click();
-		
 	}
 	
-	public void addNewItem() {
-		setPostTitleAndContent();
+	public void addNewPost(String myPostTitle) {
+		setPostTitleAndContent(myPostTitle);
 //		setAdditionalPostProperties();
 		submitForm();
 	}
@@ -70,10 +71,9 @@ public class StreserNazwaPlTest extends SeleniumBase {
 		driver.findElement(By.id("post-format-status")).click();
 	}
 
-	public void setPostTitleAndContent() {
-		this.postTitle = "Kamil post, time: " + System.currentTimeMillis();
+	public void setPostTitleAndContent(String title) {
 		String postContent = "From your comments, it seems like you're looking for best practices for the use of the Boolean wrapper class. But there really aren't any best practices, because it's a bad idea to use this class to begin with. The only reason to use the object wrapper is in cases where you absolutely must (such as when using Generics, i.e., storing a boolean in a HashMap<String, Boolean> or the like). Using the object wrapper has no upsides and a lot of downsides, most notably that it opens you up to NullPointerExceptions.";
-		driver.findElement(By.id("title")).sendKeys(this.postTitle);
+		driver.findElement(By.id("title")).sendKeys(title);
 		driver.findElement(By.id("content")).sendKeys(postContent);
 	}
 	
@@ -84,16 +84,14 @@ public class StreserNazwaPlTest extends SeleniumBase {
 		}
 	}
 
-	private void assertThatPostIsAdded() {
-		
+	private void assertThatPostIsAdded(String postTitle) {
 		this.myPost = driver.findElement(By.linkText(postTitle));
-	
 		System.out.println("Found: " + postTitle);
 	}
 	
-	private void deleteAddedPost() {
+	private void deleteAddedPost(String postTitle) {
 		Actions action = new Actions(driver);
-		action.moveToElement(this.myPost).build().perform();
+		action.moveToElement(driver.findElement(By.linkText(postTitle))).build().perform();
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		
 		By by = By.className("submitdelete");
