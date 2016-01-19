@@ -16,6 +16,7 @@ public class seleniumBase {
 
     protected WebDriver driver;
     protected String baseUrl;
+    protected String blogUrl;
     protected StringBuffer verificationErrors = new StringBuffer();
     private boolean acceptNextAlert = true;
     public UUID uuid = UUID.randomUUID();
@@ -24,9 +25,10 @@ public class seleniumBase {
     public void setUp(){
         driver = new FirefoxDriver();
         baseUrl = "http://streser.nazwa.pl/szkolenie/";
+        blogUrl = "http://streser.nazwa.pl/szkolenie/wp-admin/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         openWebpage(baseUrl);
-        loginToWebpage();
+        loginToWebpage("admin", "password");
         clickById("wp-submit");
     }
 
@@ -43,10 +45,10 @@ public class seleniumBase {
         }
     }
 
-    protected void loginToWebpage(){
+    protected void loginToWebpage(String name, String pwd){
         clickByLink("Log in");
-        insertTextIntoField("user_login","admin");
-        insertTextIntoField("user_pass","password");
+        insertTextIntoField("user_login",name);
+        insertTextIntoField("user_pass",pwd);
     }
 
 
@@ -120,5 +122,23 @@ public class seleniumBase {
 
     protected void assertIfDisplayedPostHasName(String actual) {
         assertEquals(driver.findElement(By.className("entry-title")).getText(), actual);
+    }
+
+    protected void addPost(String title) {
+        clickByLink("Posts");
+        clickByLink("Add New");
+        insertTextIntoField("title",title);
+        insertTextIntoField("content","ble");
+        clickById("publish");
+    }
+
+    protected void viewCreatedPost() {
+        clickByLink("View post");
+    }
+
+    protected void deletePost(String title) {
+        clickByLink("Posts");
+        clickCheckboxOfPost(title);
+        clickSelectedFieldInForm("Move to Trash");
     }
 }
