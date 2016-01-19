@@ -7,9 +7,9 @@ import org.openqa.selenium.*;
 public class SeleniumTest extends SeleniumBase {
 
     @Test
-    public void ShouldProveThatAllLinksAreActive() throws Exception {
+    public void ShouldProveThatAllLinksAreActive()  {
         //given
-        driver.get(baseUrl);
+        GetUrl("http://agileszkolenia.pl/");
         //when
         WebElement szkolenia = FindElementByLinkText("Szkolenia");
         ClickElement(szkolenia);
@@ -20,5 +20,6 @@ public class SeleniumTest extends SeleniumBase {
         assertEquals("Leading SAFe", leadingSafe.getText());
 
     }
+
 }
 

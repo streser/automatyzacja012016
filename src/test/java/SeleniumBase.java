@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.fail;
@@ -44,6 +45,8 @@ public class SeleniumBase {
         return driver.findElement(By.linkText(linkText));
     }
 
+    protected WebElement FindElementByClassName(String className) {return driver.findElement(By.className(className));}
+
     private boolean isElementPresent(By by) {
         try {
             driver.findElement(by);
@@ -75,5 +78,23 @@ public class SeleniumBase {
         } finally {
             acceptNextAlert = true;
         }
+    }
+
+    protected void GetUrl(String baseUrl) {
+        driver.get(baseUrl);
+    }
+
+    protected void InsertText(WebElement usernameTextbox, String text) {
+        usernameTextbox.sendKeys(text);
+    }
+
+    public WebElement FindTableRowByText(WebElement table,String text){
+        List<WebElement> tableRows = table.findElements(By.tagName("tr"));
+        for (WebElement tableRow : tableRows) {
+            if (tableRow.getText().contains(text)) {
+                return tableRow;
+            }
+        }
+        return null;
     }
 }
