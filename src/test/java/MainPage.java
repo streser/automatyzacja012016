@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Created by Administrator on 2016-01-19.
@@ -7,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 public class MainPage {
 
     private WebDriver driver;
+    private WebDriverWait wait;
     private String xPostMenu = "//div[text()='Posts']";
     private String xAddNew = "//a[text()='Add New']";
     private String xCheckBoxToDelete = "//a[text()='%s']/ancestor::tr/th/input";
@@ -14,11 +17,12 @@ public class MainPage {
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
+        wait = new WebDriverWait(driver,10);
     }
 
     public NewPostPage AddNew() {
 
-        driver.findElement(By.xpath(xPostMenu)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xPostMenu))).click();
         driver.findElement(By.xpath(xAddNew)).click();
         return new NewPostPage(driver);
     }
