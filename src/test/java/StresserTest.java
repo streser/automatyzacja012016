@@ -12,8 +12,6 @@ import org.openqa.selenium.support.ui.Select;
  */
 public class StresserTest extends BaseTest {
 
-    private String uuid;
-
     @Test
     public void shouldAddNewPost() {
 
