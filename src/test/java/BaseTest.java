@@ -39,7 +39,7 @@ public class BaseTest {
     }
 
     public WebElement findWebElementById(String text){
-        return driver.findElement(By.linkText(text));
+        return driver.findElement(By.id(text));
     }
 
     public void clickElement(WebElement element){
