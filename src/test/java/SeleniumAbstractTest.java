@@ -19,11 +19,14 @@ public class SeleniumAbstractTest {
         baseUrl = "http://streser.nazwa.pl/szkolenie/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.get(baseUrl + "/");
+        logIn();
+    }
+
+    private static void logIn() {
         driver.findElement(By.linkText("Log in")).click();
         driver.findElement(By.id("user_login")).sendKeys("admin");
         driver.findElement(By.id("user_pass")).sendKeys("password");
         driver.findElement(By.id("wp-submit")).click();
-
     }
 
     @AfterClass
