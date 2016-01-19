@@ -28,7 +28,7 @@ public class StreserPageTest extends SeleniumAbstractTest{
         select.selectByVisibleText("Move to Trash");
         driver.findElement(By.id("doaction2")).click();
         assertFalse(driver.getPageSource().contains(title));
-
+        //dfdss
     }
 
     private void logIn() {
