@@ -1,4 +1,7 @@
+package PageObjectPattern;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -6,17 +9,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * Created by Administrator on 2016-01-19.
  */
-public class MainPage {
+public class MainPage extends Page{
 
-    private WebDriver driver;
     private WebDriverWait wait;
     private String xPostMenu = "//div[text()='Posts']";
     private String xAddNew = "//a[text()='Add New']";
+    private String xPostElement = "//a[text()='%s']";
     private String xCheckBoxToDelete = "//a[text()='%s']/ancestor::tr/th/input";
     private String xTrashToDelete = "//a[text()='%s']/ancestor::tr//a[text()='Trash']";
 
     public MainPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         wait = new WebDriverWait(driver,10);
     }
 
@@ -35,5 +38,14 @@ public class MainPage {
         return this;
     }
 
+    public boolean isPostPresent(){
+        try {
+            return driver.findElement(By.xpath(String.format(xPostElement,NewPostPage.title))).getText().equals(NewPostPage.title);
+
+        }
+            catch(NoSuchElementException e){
+            return false;
+        }
+    }
 
 }

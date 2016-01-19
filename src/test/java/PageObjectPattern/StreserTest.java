@@ -1,3 +1,6 @@
+package PageObjectPattern;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -14,9 +17,12 @@ public class StreserTest extends Configuration {
         NewPostPage postPage = main.AddNew();
         postPage.AddPost();
         main = postPage.ViewAllPost();
+        Assert.assertTrue(main.isPostPresent());
         main.DeletePost();
 
     }
+
+
 
 
 }

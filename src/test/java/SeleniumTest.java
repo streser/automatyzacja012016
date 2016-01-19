@@ -2,6 +2,7 @@
  * Created by Administrator on 2016-01-18.
  */
 
+import PageObjectPattern.Configuration;
 import org.junit.Test;
 
     public class SeleniumTest extends Configuration {

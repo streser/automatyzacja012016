@@ -1,17 +1,18 @@
+package PageObjectPattern;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**
  * Created by Administrator on 2016-01-19.
  */
-public class LoginPage {
+public class LoginPage extends Page{
 
-    private WebDriver driver;
     public String login = "admin";
     public String password = "password";
 
     public LoginPage(WebDriver driver){
-        this.driver = driver;
+        super(driver);
     }
 
 
