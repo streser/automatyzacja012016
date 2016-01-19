@@ -5,6 +5,7 @@
 import org.junit.Test;
 
     public class SeleniumTest extends Configuration {
+        private String baseUrl = "http://agileszkolenia.pl/";
 
         @Test
         public void ShouldFindTextLeadingSafe() throws Exception {
