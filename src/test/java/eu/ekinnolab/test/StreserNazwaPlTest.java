@@ -30,7 +30,12 @@ public class StreserNazwaPlTest extends SeleniumBase {
 
 	public void login() {
 		driver.get(baseUrl);
-		driver.findElement(By.linkText("Log in")).click();
+		try {
+			driver.findElement(By.linkText("Log in")).click();
+		} catch (NoSuchElementException e) {
+			driver.findElement(By.linkText("Log out"));
+			driver.get("http://streser.nazwa.pl/szkolenie/wp-admin/");
+		}
 		
 		WebElement loginField = driver.findElement(By.id("user_login"));
 		WebElement passwordField = driver.findElement(By.id("user_pass"));
@@ -74,14 +79,15 @@ public class StreserNazwaPlTest extends SeleniumBase {
 	
 	public void goToPostsList() {
 		driver.findElement(By.linkText("All Posts")).click();
+		if(isAlertPresent()) {
+			driver.switchTo().alert().accept();
+		}
 	}
 
 	private void assertThatPostIsAdded() {
-		try {
-			this.myPost = driver.findElement(By.linkText(postTitle));
-		} catch (NoSuchElementException ex) {
-			Assert.assertTrue(true);
-		}
+		
+		this.myPost = driver.findElement(By.linkText(postTitle));
+	
 		System.out.println("Found: " + postTitle);
 	}
 	

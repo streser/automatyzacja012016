@@ -52,7 +52,7 @@ public class SeleniumBase {
 		}
 	}
 
-	private boolean isAlertPresent() {
+	protected boolean isAlertPresent() {
 		try {
 			driver.switchTo().alert();
 			return true;
