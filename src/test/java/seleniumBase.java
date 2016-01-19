@@ -2,9 +2,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 
@@ -21,9 +25,13 @@ public class seleniumBase {
         driver = new FirefoxDriver();
         baseUrl = "http://streser.nazwa.pl/szkolenie/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.get(baseUrl + "/");
+        openWebpage(baseUrl);
         loginToWebpage();
         clickById("wp-submit");
+    }
+
+    protected void openWebpage(String baseUrl) {
+        driver.get(baseUrl + "/");
     }
 
     @After
@@ -90,4 +98,27 @@ public class seleniumBase {
         }
     }
 
+    protected void clickSelectedFieldInForm(String text) {
+        Select dropdown = new Select(driver.findElement(By.id("bulk-action-selector-bottom")));
+        dropdown.selectByVisibleText(text);
+        clickById("doaction2");
+    }
+
+    protected void clickCheckboxOfPost(String title) {
+        List<WebElement> allTr = driver.findElements(By.tagName("tr"));
+        for (WebElement tr: allTr){
+            if (tr.getText().contains(title)){
+                WebElement checkbox = tr.findElement(By.tagName("input"));
+                checkbox.click();
+            }
+        }
+    }
+
+    protected void assertIfDisplayedMessageHasText(String actual) {
+        assertEquals(driver.findElement(By.id("message")).getText(), actual);
+    }
+
+    protected void assertIfDisplayedPostHasName(String actual) {
+        assertEquals(driver.findElement(By.className("entry-title")).getText(), actual);
+    }
 }
