@@ -16,40 +16,70 @@ public class StresserTest extends BaseTest {
 
     @Test
     public void shouldAddNewPost() {
-        uuid = UUID.randomUUID().toString().replaceAll("-", "");
-        giveNewPost();
-        whenPostAddVerifyIt();
-        thenDropPost();
+
+
+        String title = UUID.randomUUID().toString().replaceAll("-", "");
+
+        logIn("admin", "password");
+        goToPostCreationPage();
+        createAndPublish(title);
+
+        goToBlog();
+        assert isPostPresent(title);
+
+        goToPostsList();
+        removePost(title);
+
+        goToBlog();
+        assert !isPostPresent(title);
+
     }
 
-    public void giveNewPost(){
-        goToPage("http://streser.nazwa.pl/szkolenie");
-        clickElement(findWebElementByText("Log in"));
-        writTextToElement("admin", findWebElementById("user_login"));
-        writTextToElement("password", findWebElementById("user_pass"));
-        clickElement(findWebElementById("wp-submit"));
-        clickElement(findWebElementByText("Posts"));
-        clickElement(findWebElementByText("Add New"));
-        writTextToElement(uuid, findWebElementById("title"));
-        writTextToElement("Testowa wiadomosc", findWebElementById("content"));
-        clickElement(findWebElementById("publish"));
-    }
-
-    public void whenPostAddVerifyIt(){
-        goToPage("http://streser.nazwa.pl/szkolenie");
-        Assert.assertEquals(uuid, findWebElementByText(uuid).getText());
-    }
-
-    public void thenDropPost(){
-        goToPage("http://streser.nazwa.pl/szkolenie/wp-admin/");
-        clickElement(findWebElementByText("Posts"));
-        clickElement(findWebElementById(getCheckBoxId()));
+    private void removePost(String title) {
+        clickElement(findWebElementById(getCheckBoxId(title)));
         selectSelectByValue("bulk-action-selector-bottom", "trash");
         clickElement(findWebElementById("doaction2"));
     }
 
-    public String getCheckBoxId(){
-        WebElement element = findWebElementByText(uuid);
+    private void goToPostCreationPage() {
+        goToPage("http://streser.nazwa.pl/szkolenie/wp-admin");
+        clickElement(findWebElementByText("Posts"));
+        clickElement(findWebElementByText("Add New"));
+    }
+
+    private void goToPostsList() {
+        goToPage("http://streser.nazwa.pl/szkolenie/wp-admin");
+        clickElement(findWebElementByText("Posts"));
+    }
+
+    private void createAndPublish(String title) {
+        writTextToElement(title, findWebElementById("title"));
+        writTextToElement("Testowa wiadomość", findWebElementById("content"));
+        clickElement(findWebElementById("publish"));
+    }
+
+    private boolean isPostPresent(String title) {
+        try {
+            return title.equals(findWebElementByText(title).getText());
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    private void goToBlog() {
+        goToPage("http://streser.nazwa.pl/szkolenie");
+    }
+
+    private void logIn(String admin, String password) {
+        goToPage("http://streser.nazwa.pl/szkolenie");
+        clickElement(findWebElementByText("Log in"));
+        writTextToElement(admin, findWebElementById("user_login"));
+        writTextToElement(password, findWebElementById("user_pass"));
+        clickElement(findWebElementById("wp-submit"));
+    }
+
+    public String getCheckBoxId(String title){
+        WebElement element = findWebElementByText(title);
         String link = element.getAttribute("href");
         link = link.substring((link.indexOf("post=")+5));
         String id = "";
