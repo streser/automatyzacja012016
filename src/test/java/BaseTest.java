@@ -20,9 +20,8 @@ public class BaseTest {
     @Before
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
-        baseUrl = "http://agileszkolenia.pl/";
-        driver.get(baseUrl);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+
     }
 
     @After
@@ -44,5 +43,19 @@ public class BaseTest {
 
     public void clickElement(WebElement element){
         element.click();
+    }
+
+    public void writTextToElement(String text, WebElement element){
+        element.sendKeys(text);
+    }
+
+    public void goToPage(String page){
+        driver.get(page);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+
+    public void selectSelectByValue(String id, String valueToSelect){
+        Select select = new Select(findWebElementById(id));
+        select.selectByValue(valueToSelect);
     }
 }
