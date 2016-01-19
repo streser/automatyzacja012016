@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 public class Configuration {
 
     public WebDriver driver;
-    public  String baseUrl = "http://agileszkolenia.pl/";
+    public String baseUrl = "http://streser.nazwa.pl/szkolenie/wp-login.php";
 
     @Before
     public void setUp() throws Exception {
