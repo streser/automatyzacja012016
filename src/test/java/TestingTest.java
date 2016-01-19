@@ -6,7 +6,7 @@ import org.junit.*;
 public class TestingTest  {
 
     @BeforeClass
-    public static void shouldBePringBeforeClass(){
+    public static void shouldBePrintBeforeClass(){
         System.out.println("Before class");
         System.out.println("");
     }
