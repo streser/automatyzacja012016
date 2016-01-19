@@ -6,7 +6,7 @@ import org.junit.Test;
 public class StreserTest extends Configuration {
 
     @Test
-    public void ShouldLogtoStreser(){
+    public void ShouldAddPostandDelete(){
 
         OpenUrl(baseUrl);
         LoginPage login = new LoginPage(driver);
@@ -15,8 +15,6 @@ public class StreserTest extends Configuration {
         postPage.AddPost();
         main = postPage.ViewAllPost();
         main.DeletePost();
-
-
 
     }
 
