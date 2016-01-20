@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.Select;
 
 public class SeleniumTest extends BaseTest {
 
-    @Test
+    //@Test
     public void shouldCheckIfLeadingSafeExist() throws Exception {
         goToPage("http://agileszkolenia.pl/");
         clickElement(findWebElementByText("Szkolenia"));
