@@ -17,7 +17,7 @@ public class StreserNazwaPlTest extends SeleniumBase {
 		baseUrl = "http://streser.nazwa.pl/szkolenie/";
 	}
 	
-	@Test
+//	@Test
 	public void shouldNewPostBeAddedAndDeleted() {
 		this.postTitle = "Kamil post, time: " + System.currentTimeMillis();
 
