@@ -10,6 +10,7 @@ import wordpress.pages.LoginPage;
 
 import java.util.UUID;
 
+import static com.thoughtworks.selenium.SeleneseTestBase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -33,6 +34,8 @@ public class PostTest extends BaseTest{
         ap = bp.goToAdminPage();
         ap.goToPostListAndClickInTitle(title);
         ap.editVisibility();
+        ap.goToBlog();
+        assertFalse(bp.isPostVisible(title));
     }
 
 }
