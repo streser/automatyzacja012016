@@ -22,6 +22,15 @@ public class StreserTest extends Configuration {
 
     }
 
+@Test
+public void ShouldTestAjax(){
+    OpenUrl(baseUrl);
+    LoginPage login = new LoginPage(driver);
+    MainPage main = login.LogIn();
+    NewPostPage postPage = main.AddNew();
+    postPage.AddPost();
+
+}
 
 
 
