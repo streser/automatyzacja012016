@@ -15,10 +15,11 @@ public class LoginPage extends Page {
         driver.get("http://streser.nazwa.pl/szkolenie/");
     }
 
-    public void correctLogin(String login, String pwd) {
+    public AdminPage correctLogin(String login, String pwd) {
         driver.findElement(By.linkText("Log in")).click();
         driver.findElement(By.id("user_login")).sendKeys(login);
         driver.findElement(By.id("user_pass")).sendKeys(pwd);
         clickById("wp-submit");
+        return new AdminPage(driver);
     }
 }

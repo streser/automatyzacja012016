@@ -13,9 +13,8 @@ public class PostsTest extends SeleniumBase{
     public void shouldBePossibleToAddNewBlogPage(){
         LoginPage lp = new LoginPage(driver);
         lp.open();
-        lp.correctLogin("admin", "password");
+        AdminPage ap = lp.correctLogin("admin", "password");
 
-        AdminPage ap = new AdminPage(driver);
         ap.addPost(title);
         ap.assertIfDisplayedMessageHasText("Post published. View post\n" +
                 "Dismiss this notice.");
@@ -34,9 +33,9 @@ public class PostsTest extends SeleniumBase{
     public void shouldBePossibleToAddNewBlogPageWithExtraParameters() {
         LoginPage lp = new LoginPage(driver);
         lp.open();
-        lp.correctLogin("admin", "password");
+        AdminPage ap = lp.correctLogin("admin", "password");
 
-        AdminPage ap = new AdminPage(driver);
+
         ap.addPostWithParameters(title);
 
 
