@@ -17,8 +17,7 @@ public class AdminPage extends AdministratePage {
     }
 
     public AddNewPostPage goToAddNewPostPage() {
-        clickElement(findWebElementByText("Posts"));
-        clickElement(findWebElementByText("Add New"));
+        driver.get("http://streser.nazwa.pl/szkolenie/wp-admin/post-new.php");
         return new AddNewPostPage(driver);
     }
 

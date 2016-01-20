@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.Select;
 import wordpress.pages.AddNewPostPage;
 import wordpress.pages.AdminPage;
@@ -36,7 +37,7 @@ public class PostCreationSteps {
         if(title==null) {
             title = UUID.randomUUID().toString();
         }
-        driver = new FirefoxDriver();
+        driver = new HtmlUnitDriver();
         LoginPage lp = new LoginPage(driver);
         lp.open();
         ap = lp.correctLogin();
@@ -57,8 +58,7 @@ public class PostCreationSteps {
 
     @When("^he delete post with selected title$")
     public void he_delete_post_with_selected_title() throws Throwable {
-        goToPage("http://streser.nazwa.pl/szkolenie/wp-admin");
-        clickElement(findWebElementByText("Posts"));
+        goToPage("http://streser.nazwa.pl/szkolenie/wp-admin/edit.php");
         clickElement(findWebElementById(getCheckBoxId(title)));
         selectSelectByValue("bulk-action-selector-bottom", "trash");
         clickElement(findWebElementById("doaction2"));
