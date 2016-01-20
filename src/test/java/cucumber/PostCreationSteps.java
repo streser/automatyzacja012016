@@ -57,8 +57,6 @@ public class PostCreationSteps {
 
     @When("^he delete post with selected title$")
     public void he_delete_post_with_selected_title() throws Throwable {
-        driver.get("http://streser.nazwa.pl/szkolenie/wp-admin/");
-        he_adds_new_post_with_totle_and_simple_content();
         goToPage("http://streser.nazwa.pl/szkolenie/wp-admin");
         clickElement(findWebElementByText("Posts"));
         clickElement(findWebElementById(getCheckBoxId(title)));

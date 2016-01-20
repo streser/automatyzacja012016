@@ -6,5 +6,6 @@ Feature: Post Creation
 
   Scenario: Post removing
     Given user is logged
+    And he adds new post with totle and simple content
     When he delete post with selected title
     Then by default it shouldn't be visible on the blog
