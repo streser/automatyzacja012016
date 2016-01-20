@@ -19,7 +19,7 @@ public class EditPage extends Page {
 
     }
 
-    public FrontPage GoToFrontPage() {
+    public FrontPage GoToEditPage() {
 
         driver.get("http://streser.nazwa.pl/szkolenie/wp-admin/edit.php");
         return new FrontPage(driver);

@@ -2,8 +2,11 @@ package wordpress.Pages;
 
 import org.junit.After;
 import org.junit.Before;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,7 +15,8 @@ import static org.junit.Assert.fail;
 /**
  * Created by Administrator on 2016-01-20.
  */
-public class PageObjectPatternBase {protected WebDriver driver;
+public class PageObjectPatternBase {
+    protected WebDriver driver;
     protected String baseUrl;
     private StringBuffer verificationErrors = new StringBuffer();
     private boolean acceptNextAlert = true;
@@ -32,5 +36,7 @@ public class PageObjectPatternBase {protected WebDriver driver;
             fail(verificationErrorString);
         }
     }
+
+
 
 }
