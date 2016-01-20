@@ -20,6 +20,7 @@ public class LoginPage extends Page {
     }
 
     public AdminPage correctLogin() {
+
         writTextToElement("admin", findWebElementById("user_login"));
         writTextToElement("password", findWebElementById("user_pass"));
         clickElement(findWebElementById("wp-submit"));
