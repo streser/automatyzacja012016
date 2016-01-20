@@ -9,13 +9,12 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.fail;
 
-public class SeleniumBase extends  Page{
+public class Base extends Page{
 
     public static String baseUrl;
     public static WebDriver driver;
     public static StringBuffer verificationErrors = new StringBuffer();
-
-    public SeleniumBase(WebDriver driver) {
+    public Base(WebDriver driver) {
         super(driver);
     }
 
