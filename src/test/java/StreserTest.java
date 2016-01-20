@@ -1,8 +1,6 @@
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.util.List;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -12,43 +10,71 @@ import static org.junit.Assert.assertEquals;
  */
 public class StreserTest extends SeleniumBase {
 
+    private String title = UUID.randomUUID().toString();;
+
     @Test
     public void ShouldAddPost() {
 
-        UserLogin();
+        UserLogin("admin", "password");
 
+        GoToPostCreationPage();
+        CreateAndPublish(title);
+
+        GoToBlog();
+       assert IsPostPresent(title);
+
+        GoToPostsList();
+
+        RemovePost(title);
+
+        GoToBlog();
+        assert IsPostPresent(title) == false;
+
+    }
+
+    protected void RemovePost(String title) {
+        WebElement postsTable = FindElementByClassName("wp-list-table");
+        WebElement row = FindTableRowByText(postsTable,  title);
+        ClickElement(row);
+        WebElement trashLink = FindElementByLinkText("Trash");
+        ClickElement(trashLink);
+    }
+
+    protected void GoToPostsList() {
+        GetUrl("http://streser.nazwa.pl/szkolenie/wp-admin/edit.php");
+    }
+
+    protected boolean IsPostPresent(String title) {
+        WebElement recentlyAddeedPost = FindElementByLinkText(title);
+        return this.title.equals(recentlyAddeedPost.getText());
+    }
+
+    protected void GoToBlog() {
+        GetUrl("http://streser.nazwa.pl/szkolenie/");
+    }
+
+    protected void CreateAndPublish(String title) {
+        WebElement postTextBox = FindElementById("title-prompt-text");
+        InsertText(postTextBox, title);
+        WebElement publishButton = FindElementById("publish");
+        ClickElement(publishButton);
+    }
+
+    protected void GoToPostCreationPage() {
         WebElement postLink = FindElementByLinkText("Posts");
         ClickElement(postLink);
         WebElement addPost = FindElementByLinkText("Add New");
         ClickElement(addPost);
-        WebElement postTextBox = FindElementById("title-prompt-text");
-        String title = UUID.randomUUID().toString();
-        InsertText(postTextBox, title);
-        WebElement publishButton = FindElementById("publish");
-        ClickElement(publishButton);
-
-        GetUrl("http://streser.nazwa.pl/szkolenie/");
-        WebElement recentlyAddeedPost = FindElementByLinkText(title);
-        assertEquals(title, recentlyAddeedPost.getText());
-
-        GetUrl("http://streser.nazwa.pl/szkolenie/wp-admin/edit.php");
-
-        WebElement postsTable = FindElementByClassName("wp-list-table");
-        WebElement row = FindTableRowByText(postsTable, title);
-        ClickElement(row);
-        WebElement trashLink = FindElementByLinkText("Trash");
-        ClickElement(trashLink);
-
     }
 
-    protected void UserLogin() {
-        GetUrl("http://streser.nazwa.pl/szkolenie/");
+    protected void UserLogin(String login, String password) {
+        GoToBlog();
         WebElement loginLink = FindElementByLinkText("Log in");
         ClickElement(loginLink);
         WebElement usernameTextbox = FindElementById("user_login");
-        InsertText(usernameTextbox, "admin");
+        InsertText(usernameTextbox, login);
         WebElement passwordTextbox = FindElementById("user_pass");
-        InsertText(passwordTextbox, "password");
+        InsertText(passwordTextbox, password);
         WebElement loginBtn = FindElementById("wp-submit");
         ClickElement(loginBtn);
     }
