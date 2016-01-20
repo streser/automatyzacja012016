@@ -1,7 +1,6 @@
 package wordpress;
 
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
 import wordpress.pages.AdminPage;
 import wordpress.pages.LoginPage;
 import wordpress.pages.SeleniumBase;
@@ -15,6 +14,7 @@ public class PostsTest extends SeleniumBase{
         LoginPage lp = new LoginPage(driver);
         lp.open();
         lp.correctLogin("admin", "password");
+
         AdminPage ap = new AdminPage(driver);
         ap.addPost(title);
         ap.assertIfDisplayedMessageHasText("Post published. View post\n" +
@@ -23,12 +23,38 @@ public class PostsTest extends SeleniumBase{
         ap.viewCreatedPost();
         ap.assertIfDisplayedPostHasName(title);
 
-        ap.openWebpage("http://streser.nazwa.pl/szkolenie/wp-admin/");
+        ap.openListOfPosts();
         ap.deletePost(title);
         ap.assertIfDisplayedMessageHasText("1 post moved to the Trash. Undo\n" +
                 "Dismiss this notice.");
 
-        System.out.println("test");
     }
+
+    @Test
+    public void shouldBePossibleToAddNewBlogPageWithExtraParameters() {
+        LoginPage lp = new LoginPage(driver);
+        lp.open();
+        lp.correctLogin("admin", "password");
+
+        AdminPage ap = new AdminPage(driver);
+        ap.addPostWithParameters(title);
+
+
+        ap.assertIfDisplayedMessageHasText("Post published. View post\n" +
+                "Dismiss this notice.");
+
+        ap.viewCreatedPost();
+        ap.assertIfDisplayedPostHasNamePrivat("Private: " +title);
+
+        ap.openListOfPosts();
+
+        ap.deletePost(title);
+        ap.assertIfDisplayedMessageHasText("1 post moved to the Trash. Undo\n" +
+                "Dismiss this notice.");
+
+
+    }
+
+
 
 }

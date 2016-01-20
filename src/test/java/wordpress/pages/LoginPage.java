@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import wordpress.pages.Page;
 
-import java.util.UUID;
 
 public class LoginPage extends Page {
 

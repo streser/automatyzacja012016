@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class AdminPage extends Page{
     public AdminPage(WebDriver driver) {
         super(driver);
@@ -20,14 +22,25 @@ public class AdminPage extends Page{
         insertTextIntoField("title",title);
         insertTextIntoField("content","ble");
         clickById("publish");
-
     }
+
+    public void addPostWithParameters(String title) {
+        clickByLink("Posts");
+        clickByLink("Add New");
+        insertTextIntoField("title",title);
+        insertTextIntoField("content","ble");
+        driver.findElement(By.className("edit-post-status")).click();
+        waitForElement("post-status-select");
+        clickSelectedFieldInForm2("Pending Review");
+        driver.findElement(By.className("edit-visibility")).click();
+        waitForElement("post-visibility-select");
+        driver.findElement(By.id("visibility-radio-private")).click();
+        driver.findElement(By.className("save-post-visibility")).click();
+        clickById("publish");
+    }
+
     public void viewCreatedPost() {
         clickByLink("View post");
-    }
-
-    public void openWebpage(String baseUrl) {
-        driver.get(baseUrl + "/");
     }
 
     public void deletePost(String title) {
@@ -41,6 +54,12 @@ public class AdminPage extends Page{
         clickById("doaction2");
     }
 
+    protected void clickSelectedFieldInForm2(String text) {
+        Select dropdown = new Select(driver.findElement(By.id("post_status")));
+        dropdown.selectByVisibleText(text);
+        driver.findElement(By.className("save-post-status")).click();
+    }
+
     public void clickCheckboxOfPost(String title) {
         List<WebElement> allTr = driver.findElements(By.tagName("tr"));
         for (WebElement tr: allTr){
@@ -49,5 +68,16 @@ public class AdminPage extends Page{
                 checkbox.click();
             }
         }
+    }
+    public void assertIfDisplayedMessageHasText(String actual) {
+        assertEquals(driver.findElement(By.id("message")).getText(), actual);
+    }
+
+    public void assertIfDisplayedPostHasName(String actual) {
+        assertEquals(driver.findElement(By.className("entry-title")).getText(), actual);
+    }
+
+    public void assertIfDisplayedPostHasNamePrivat(String actual) {
+        assertEquals(driver.findElement(By.className("entry-title")).getText(), actual);
     }
 }
