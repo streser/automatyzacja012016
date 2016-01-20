@@ -17,7 +17,6 @@ public class LoginPage extends Page{
         driver.findElement(By.id("user_login")).sendKeys("admin");
         driver.findElement(By.id("user_pass")).sendKeys("password");
         driver.findElement(By.id("wp-submit")).click();
-
         return new AdminPage(driver);
     }
 }
