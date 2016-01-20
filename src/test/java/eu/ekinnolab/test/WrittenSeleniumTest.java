@@ -2,7 +2,6 @@ package eu.ekinnolab.test;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
 import org.openqa.selenium.By;
 
 public class WrittenSeleniumTest extends SeleniumBase {
@@ -11,7 +10,7 @@ public class WrittenSeleniumTest extends SeleniumBase {
 		driver.get(baseUrl + "/");
 	}
 
-	@Test
+//	@Test
 	public void testSeleniumManually() throws Exception {
 		givenIamOnMainPage();
 		whenIgoToOrganizationSection();
