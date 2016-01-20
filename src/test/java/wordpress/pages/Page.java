@@ -3,7 +3,9 @@ package wordpress.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -54,5 +56,10 @@ public abstract class Page {
     public void selectSelectByValue(String id, String valueToSelect){
         Select select = new Select(findWebElementById(id));
         select.selectByValue(valueToSelect);
+    }
+
+    public void wait(By by){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 }

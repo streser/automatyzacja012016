@@ -18,4 +18,9 @@ public class BlogPage extends Page {
             return false;
         }
     }
+
+    public AdminPage goToAdminPage(){
+        driver.get("http://streser.nazwa.pl/szkolenie/wp-admin/");
+        return new AdminPage(driver);
+    }
 }

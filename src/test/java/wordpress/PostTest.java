@@ -20,14 +20,19 @@ public class PostTest extends BaseTest{
     @Test
     public void shouldBeCorrectLogIn(){
         String title = UUID.randomUUID().toString();
+        //GIVEN
         LoginPage lp = new LoginPage(driver);
         lp.open();
-
         AdminPage ap = lp.correctLogin();
+        //WHEN
         AddNewPostPage anpp = ap.goToAddNewPostPage();
         anpp.addNewPost(title);
+        //THEN
         BlogPage bp = anpp.goToBlog();
         assertTrue(bp.isPostVisible(title));
+        ap = bp.goToAdminPage();
+        ap.goToPostListAndClickInTitle(title);
+        ap.editVisibility();
     }
 
 }
