@@ -27,17 +27,21 @@ public class NewPostPage extends Page {
     public NewPostPage AddPost() {
         title = "MS" + UUID.randomUUID().toString();
         driver.findElement(By.id("title")).sendKeys(title);
-        SetPostAttributes("Pending Review","Private");
+        return this;
+    }
+
+    public NewPostPage Publish(){
         driver.findElement(By.id("publish")).click();
         return this;
     }
+
 
     public MainPage ViewAllPost() {
         driver.findElement(By.xpath(xAllNewTests)).click();
         return new MainPage(driver);
     }
 
-    public void SetPostAttributes(String status, String visibility) {
+    public NewPostPage SetPostAttributes(String status, String visibility) {
 
         driver.findElement((By.xpath(xEditStatus))).click();//click edit
         WaitForElement(By.id("post_status"));
@@ -49,6 +53,7 @@ public class NewPostPage extends Page {
         WaitForElement(By.xpath(xPublicRadioButton));
         driver.findElement(By.xpath(String.format(xVisibilityStatus,visibility))).click();
         driver.findElement(By.xpath(xOKButtonVisibility)).click();//click ok
+        return this;
 
     }
 
