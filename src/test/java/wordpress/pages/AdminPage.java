@@ -17,7 +17,7 @@ public class AdminPage extends Page{
     }
 
     public void addNewPost(String status, Visibility visibility) {
-        driver.findElement(By.linkText("Posts")).click();
+        driver.findElement(By.className("menu-top-first")).click();
         driver.findElement(By.className("page-title-action")).click();
         driver.findElement(By.id("title")).sendKeys(postTitle);
         driver.findElement(By.className("edit-post-status")).click();
@@ -33,7 +33,8 @@ public class AdminPage extends Page{
     }
 
     public void findPost() {
-        driver.findElement(By.linkText("Posts")).click();
+        driver.findElement(By.className("menu-top-first")).click();
+        //driver.findElement(By.linkText("Posts")).click();
         driver.findElement(By.linkText(postTitle)).click();
         assertEquals(driver.findElement(By.id("post-status-display")).getText(), "Privately Published");
         assertEquals(driver.findElement(By.id("post-visibility-display")).getText(), "Private");
