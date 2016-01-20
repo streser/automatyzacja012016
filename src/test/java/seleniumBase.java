@@ -16,7 +16,7 @@ public class seleniumBase {
 
     protected WebDriver driver;
     protected String baseUrl;
-    protected String blogUrl;
+    protected String listOfAllPostsUrl;
     protected StringBuffer verificationErrors = new StringBuffer();
     private boolean acceptNextAlert = true;
     public UUID uuid = UUID.randomUUID();
@@ -25,7 +25,7 @@ public class seleniumBase {
     public void setUp(){
         driver = new FirefoxDriver();
         baseUrl = "http://streser.nazwa.pl/szkolenie/";
-        blogUrl = "http://streser.nazwa.pl/szkolenie/wp-admin/";
+        listOfAllPostsUrl = "http://streser.nazwa.pl/szkolenie/wp-admin/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         openWebpage(baseUrl);
         loginToWebpage("admin", "password");

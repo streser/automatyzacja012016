@@ -6,17 +6,14 @@ public class streserSzkolenieTest extends seleniumBase {
         String title = uuid.toString() + " Piotr";
 
         addPost(title);
-
         assertIfDisplayedMessageHasText("Post published. View post\n" +
                 "Dismiss this notice.");
 
         viewCreatedPost();
-
         assertIfDisplayedPostHasName(title);
 
-        openWebpage(blogUrl);
+        openWebpage(listOfAllPostsUrl);
         deletePost(title);
-
         assertIfDisplayedMessageHasText("1 post moved to the Trash. Undo\n" +
                 "Dismiss this notice.");
     }
