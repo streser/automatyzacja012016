@@ -4,10 +4,10 @@ import org.junit.Test;
 
 import wordpress.pages.AdminPage;
 import wordpress.pages.LoginPage;
-import wordpress.pages.SeleniumBase;
+import wordpress.pages.Base;
 
 
-public class PostsTest extends SeleniumBase{
+public class PostsTest extends Base{
 
     public PostsTest(){
         super(driver);
@@ -19,7 +19,7 @@ public class PostsTest extends SeleniumBase{
         loginPage.Open();
 
         AdminPage adminPage = loginPage.correctLogin();
-        adminPage.addNewPost("Pending Review", "private");
+        adminPage.addNewPost("Pending Review", Visibility.PRIVATE);
         adminPage.findPost();
     }
 }

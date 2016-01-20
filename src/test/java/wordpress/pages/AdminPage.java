@@ -16,7 +16,7 @@ public class AdminPage extends Page{
         super(driver);
     }
 
-    public void addNewPost(String status) {
+    public void addNewPost(String status, Visibility visibility) {
         driver.findElement(By.linkText("Posts")).click();
         driver.findElement(By.className("page-title-action")).click();
         driver.findElement(By.id("title")).sendKeys(postTitle);
@@ -27,7 +27,7 @@ public class AdminPage extends Page{
         driver.findElement(By.className("save-post-status")).click();
         driver.findElement(By.className("edit-visibility")).click();
         waitForElement("visibility-radio-private");
-        driver.findElement(By.id("visibility-radio-" + Visibility.PRIVATE)).click();
+        driver.findElement(By.id("visibility-radio-" + visibility)).click();
         driver.findElement(By.className("save-post-visibility")).click();
         driver.findElement(By.id("publish")).click();
     }
