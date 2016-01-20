@@ -11,8 +11,9 @@ public class LoginPage extends Page {
 		super(driver);
 	}
 
-	public void open() {
+	public LoginPage open() {
 		driver.get("http://streser.nazwa.pl/szkolenie/");
+		return this;
 		
 	}
 	

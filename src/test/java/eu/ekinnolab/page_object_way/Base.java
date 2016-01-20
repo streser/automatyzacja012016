@@ -9,11 +9,14 @@ import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import eu.ekinnolab.page_object_way.pages.BlogOwner;
+
 /**
  * Created by Kamil Tor on 19 sty 2016
  */
 public class Base {
 	WebDriver driver;
+	BlogOwner blogOwner = new BlogOwner();
 	protected String baseUrl;
 	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
@@ -77,5 +80,4 @@ public class Base {
 	public void setBaseUrl(String baseUrl) {
 		this.baseUrl = baseUrl;
 	}
-
 }

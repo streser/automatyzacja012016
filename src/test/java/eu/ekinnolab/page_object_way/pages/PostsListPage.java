@@ -10,11 +10,15 @@ public class PostsListPage extends Page {
 	public PostsListPage(WebDriver driver) {
 		super(driver);
 	}
-
-	public boolean isPostPresent(String title) {
+	
+	public boolean assertPresenceOfPost(String title) {
 		driver.findElement(By.linkText(title));
 		System.out.println("Found: " + title);
 		return true;
 	}
-
+	
+	public PostsListPage goToPrivatePosts() {
+		click(By.partialLinkText("Private"));
+		return this;
+	}
 }
