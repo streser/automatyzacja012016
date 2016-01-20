@@ -1,15 +1,17 @@
 package cucumber;
 
 import cucumber.api.PendingException;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import wordpress.pages.AdminPage;
 import wordpress.pages.LoginPage;
-
 import java.util.UUID;
 
 public class AddPostTest {
@@ -18,9 +20,19 @@ public class AddPostTest {
     private AdminPage ap;
     String title = UUID.randomUUID().toString();
 
+    @Before
+    public void setUp(){
+        driver = new FirefoxDriver();
+        //driver = new HtmlUnitDriver();
+    }
+
+    @After
+    public void tearDown(){
+        driver.quit();
+    }
+
     @Given("^user is logged in$")
     public void user_is_logged_in() {
-        driver = new FirefoxDriver();
         LoginPage lp = new LoginPage(driver);
         lp.open();
         ap = lp.correctLogin("admin", "password");
@@ -35,7 +47,6 @@ public class AddPostTest {
     public void added_post_should_be_visible_in_blog_page() {
         ap.assertIfDisplayedMessageHasText("Post published. View post\n" +
                 "Dismiss this notice.");
-        driver.quit();
     }
 
 //    @Given("^user adds new post$")
